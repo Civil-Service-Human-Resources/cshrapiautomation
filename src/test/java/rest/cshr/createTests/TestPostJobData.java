@@ -1,28 +1,20 @@
-package rest.cshr;
+package rest.cshr.createTests;
 
-import com.google.gson.JsonObject;
-import io.restassured.path.json.JsonPath;
+import com.opera.core.systems.scope.protos.EcmascriptProtos;
 import io.restassured.response.Response;
-import net.serenitybdd.junit.runners.SerenityParameterizedRunner;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Title;
-import net.thucydides.junit.annotations.UseTestDataFrom;
-import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.io.File;
-import java.io.FileReader;
+import rest.cshr.searchpojo.SearchLocation;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import static io.restassured.http.ContentType.JSON;
 import static net.serenitybdd.rest.SerenityRest.given;
 
 @RunWith(SerenityRunner.class)
-public class PostJobData extends ApiSetup {
+public class TestPostJobData extends ApiSetup {
 
    /* @Title("Post a valid job data with all fields matching requirement")
     @Test
@@ -56,11 +48,20 @@ public class PostJobData extends ApiSetup {
         Assert.assertEquals("london".toLowerCase(), jk.get(1).get("location").toLowerCase());
     }*/
 
-   @Test
-   public void postJobs() throws Exception{
-       for(int i=0;i<csvToJsonJob().size();i++){
-           Response res = SerenityRest.rest().given().contentType("application/json").body(csvToJsonJob().get(i).toString()).when().post("/vacancy");
-           System.out.println("Response status code is : "+res.body().jsonPath().get("identifier"));
-       }
-   }
+    @Title("Post a valid job data with all fields matching requirement")
+    @Test
+    public void postvalidJob() throws Exception {
+
+        Response response = SerenityRest.rest().given().auth().basic("crudusername", "crudpassword").contentType("application/json").body(this.getVacancyFromCsv(1)).when().post("/vacancy/save");
+        Assert.assertEquals(200,response.getStatusCode());
+    }
+
+    @Title("Get valid data using location only")
+    @Test
+    public void getvacanciesUsingLocation() {
+        Response response = SerenityRest.rest().given().auth().basic("searchusername", "searchpassword").contentType("application/json")
+                .body(this.searchParameters(null,null,null,new SearchLocation("london",30),null,null,null,true))
+                .post("/vacancy/search");
+        Assert.assertEquals(200,response.getStatusCode());
+    }
 }
