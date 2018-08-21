@@ -41,7 +41,9 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
         "workingHours",
         "workingPatterns",
         "vacancyLocations",
-        "atsVendorIdentifier"
+        "atsVendorIdentifier",
+        "active",
+        "lengthOfEmployment"
 })
 public class VacancyDetails implements Serializable {
 
@@ -115,6 +117,29 @@ public class VacancyDetails implements Serializable {
     @JsonProperty("atsVendorIdentifier")
     private String atsVendorIdentifier;
     private final static long serialVersionUID = -606114393627405107L;
+    @JsonProperty("active")
+    private String active;
+    @JsonProperty("lengthOfEmployment")
+    private String lengthOfEmployment;
+
+    public void setLengthOfEmployment(String lengthOfEmployment) {
+        if(lengthOfEmployment ==" "||lengthOfEmployment==""){
+            lengthOfEmployment=null;
+        }
+        this.lengthOfEmployment = lengthOfEmployment;
+    }
+
+
+    public String getLengthOfEmployment() {
+        return lengthOfEmployment;
+    }
+    public String getActive() {
+        return active;
+    }
+
+    public void setActive(String active) {
+        this.active = active;
+    }
 
     @JsonProperty("atsVendorIdentifier")
     public String getAtsVendorIdentifier() {
@@ -344,6 +369,9 @@ public class VacancyDetails implements Serializable {
 
     @JsonProperty("regions")
     public void setRegions(Object regions) {
+        if(regions ==" "||regions==""){
+            regions=null;
+        }
         this.regions = regions;
     }
 
@@ -384,6 +412,9 @@ public class VacancyDetails implements Serializable {
 
     @JsonProperty("salaryOverrideDescription")
     public void setSalaryOverrideDescription(Object salaryOverrideDescription) {
+        if(salaryOverrideDescription ==" "||salaryOverrideDescription==""){
+            salaryOverrideDescription=null;
+        }
         this.salaryOverrideDescription = salaryOverrideDescription;
     }
 

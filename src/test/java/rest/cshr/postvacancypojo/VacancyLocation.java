@@ -15,9 +15,9 @@ public class VacancyLocation implements Serializable
 {
     public VacancyLocation(String parmList){
         String[] parts = parmList.split("\\|");
-            this.longitude = parts[0].equals("")?null:Double.parseDouble(parts[0]);
+            this.latitude = parts[0].equals("")?null:Double.parseDouble(parts[0]);
             this.location = parts[1];
-            this.latitude = parts[0].equals("")?null:Double.parseDouble(parts[2]);
+            this.longitude = parts[0].equals("")?null:Double.parseDouble(parts[2]);
     }
 
     @JsonProperty("latitude")

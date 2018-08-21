@@ -1,4 +1,4 @@
-package rest.cshr.createTests;
+package rest.cshr.createTestData;
 
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,7 +16,8 @@ import java.io.File;
 import java.util.List;
 
 public class ApiSetup {
-    private File input = new File("/Users/ravigeda/Desktop/Docs/cshr/cshrapitestautomation/src/test/resources/data/JobData.csv");
+    private static File input = new File("src/test/resources/data/JobData.csv");
+
     @Before
     public void setUp(){
         String baseHost = System.getProperty("server.host");
@@ -27,15 +28,15 @@ public class ApiSetup {
         }
     }
 
-    public String getVacancyFromCsv(int csvrow) {
-        System.out.println("csvtojson started");
+    public static String getVacancyFromCsv(int csvrow) {
         try {
+            System.out.println("Current csv row reading is: "+csvrow);
             CsvMapper mapper = new CsvMapper();
             CsvSchema schema = mapper.schemaFor(VacancyDetails.class);
-
             MappingIterator<VacancyDetails> it = mapper.readerFor(VacancyDetails.class).with(schema).readValues(input);
             List<VacancyDetails> all = it.readAll();
             Gson gsonObj = new GsonBuilder().serializeNulls().create();
+            System.out.println("The json to send is : "+ gsonObj.toJson(all.get(csvrow)));
             return gsonObj.toJson(all.get(csvrow));
         } catch (Exception e) {
             e.printStackTrace();
@@ -43,9 +44,22 @@ public class ApiSetup {
         return null;
     }
 
+   public static int getNoOfrowsInCsv(){
+       try {
+           CsvMapper mapper = new CsvMapper();
+           CsvSchema schema = mapper.schemaFor(VacancyDetails.class);
+           MappingIterator<VacancyDetails> it = mapper.readerFor(VacancyDetails.class).with(schema).readValues(input);
+           List<VacancyDetails> all = it.readAll();
+           System.out.println("No of rows in csv is: "+ all.size());
+           return all.size();
+       } catch (Exception e) {
+           e.printStackTrace();
+       }
+       return 0;
+   }
+
     public String searchParameters(String contractTypes, List<String> department, String keyword, SearchLocation location, String workingPatterns,
                                  Integer maxSalary, Integer minSalary, Boolean overseasJob){
-        System.out.println("Building search");
         try {
             ObjectMapper mapper = new ObjectMapper();
             SearchQuery searchQuery = new SearchQuery(contractTypes,department,keyword,location,workingPatterns,maxSalary,minSalary,overseasJob);

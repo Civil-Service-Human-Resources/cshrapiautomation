@@ -4,6 +4,7 @@ package rest.cshr.searchpojo;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,21 +14,21 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
-    "contractTypes",
-    "department",
-    "keyword",
-    "location",
-    "workingPatterns",
-    "maxSalary",
-    "minSalary",
-    "overseasJob"
+        "contractTypes",
+        "department",
+        "keyword",
+        "location",
+        "workingPatterns",
+        "maxSalary",
+        "minSalary",
+        "overseasJob"
 })
 public class SearchQuery {
 
     public SearchQuery(String contractTypes, List<String> department, String keyword, SearchLocation location, String workingPatterns,
-                       Integer maxSalary, Integer minSalary, Boolean overseasJob){
+                       Integer maxSalary, Integer minSalary, Boolean overseasJob) {
         this.contractTypes = contractTypes;
-        this.department= department;
+        this.department = department;
         this.keyword = keyword;
         this.location = location;
         this.workingPatterns = workingPatterns;
@@ -36,6 +37,7 @@ public class SearchQuery {
         this.overseasJob = overseasJob;
 
     }
+
     @JsonProperty("contractTypes")
     private String contractTypes;
     @JsonProperty("department")
