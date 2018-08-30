@@ -7,7 +7,7 @@ import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.restassured.RestAssured;
-import org.junit.Before;
+import org.testng.annotations.BeforeSuite;
 import rest.cshr.postvacancypojo.VacancyDetails;
 import rest.cshr.searchpojo.SearchLocation;
 import rest.cshr.searchpojo.SearchQuery;
@@ -18,7 +18,12 @@ import java.util.List;
 public class ApiSetup {
     private static File input = new File("src/test/resources/data/JobData.csv");
 
-    @Before
+    protected String searchUserName = "searchusername";
+    protected String searchPassword = "searchpassword";
+    protected String crudUserName = "crudusername";
+    protected String crudPassword = "crudpassword";
+
+    @BeforeSuite
     public void setUp(){
         String baseHost = System.getProperty("server.host");
         if(baseHost==null){

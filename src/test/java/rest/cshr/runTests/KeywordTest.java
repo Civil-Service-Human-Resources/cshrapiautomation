@@ -13,8 +13,10 @@ public class KeywordTest extends CreateTestData {
     @Test(description="List all vacancies using keyword only")
     public void listVacanciesUsingKeyword(){
         Response response = given().auth().basic("searchusername", "searchpassword").contentType("application/json")
-                .body(this.searchParameters(null,null,"program", new SearchLocation(null,30),null,null,null,true))
+                .body(this.searchParameters(null,null,"program",
+                        new SearchLocation(null,30),null,null,null,true))
                 .post("/vacancy/search");
+        System.out.println("$.vacancies.totalElements value is : "+response.body().jsonPath().get("vacancies.totalElements"));
         Assert.assertEquals(200,response.getStatusCode());
     }
 
