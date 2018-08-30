@@ -77,8 +77,15 @@ public class ApiSetup {
         return null;
     }
 
-    public boolean ispublicOpeningDateInThePast(Instant publicdate){
+    public boolean isPublicOpeningDateInThePast(Instant publicdate){
         if(publicdate.isBefore(Instant.now())){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isClosingDateInTheFuture(Instant closingDate){
+        if(closingDate.isAfter(Instant.now())){
             return true;
         }
         return false;

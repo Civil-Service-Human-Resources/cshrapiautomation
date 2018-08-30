@@ -12,7 +12,7 @@ import static io.restassured.RestAssured.given;
 
 public class DatesTest extends CreateTestData {
 
-    @Test(description="List all vacancies and check if they are public")
+    @Test(description="List all vacancies and check if they are public and not closed")
     public void getVacanciesForPublicDates() {
         Response response = given().auth().basic("searchusername", "searchpassword").contentType("application/json")
                 .body(this.searchParameters(null,null,null,
@@ -32,8 +32,11 @@ public class DatesTest extends CreateTestData {
                 Instant publicOpeningDate = formatter.parse(response.body().jsonPath().get("vacancies.content[" + i + "].publicOpeningDate")).toInstant();
                 Instant internalOpeningDate = formatter.parse(response.body().jsonPath().get("vacancies.content[" + i + "].internalOpeningDate")).toInstant();
                 Instant govOpeningDate = formatter.parse(response.body().jsonPath().get("vacancies.content[" + i + "].governmentOpeningDate")).toInstant();
-                System.out.println("publicOpeningDate "+ publicOpeningDate+" internalOpeningDate "+internalOpeningDate +" govOpeningDate "+govOpeningDate);
-                Assert.assertTrue(ispublicOpeningDateInThePast(publicOpeningDate));
+                Instant closingDate = formatter.parse(response.body().jsonPath().get("vacancies.content[" + i + "].closingDate")).toInstant();
+                System.out.println("publicOpeningDate "+ publicOpeningDate+" internalOpeningDate "+internalOpeningDate +
+                        " govOpeningDate "+govOpeningDate+ " closingdate "+closingDate);
+
+                Assert.assertTrue(isPublicOpeningDateInThePast(publicOpeningDate) && isClosingDateInTheFuture(closingDate));
             }
             catch(ParseException pe){
                 pe.printStackTrace();
