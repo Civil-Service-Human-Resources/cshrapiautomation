@@ -13,6 +13,7 @@ import rest.cshr.searchpojo.SearchLocation;
 import rest.cshr.searchpojo.SearchQuery;
 
 import java.io.File;
+import java.time.Instant;
 import java.util.List;
 
 public class ApiSetup {
@@ -74,5 +75,12 @@ public class ApiSetup {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public boolean ispublicOpeningDateInThePast(Instant publicdate){
+        if(publicdate.isBefore(Instant.now())){
+            return true;
+        }
+        return false;
     }
 }

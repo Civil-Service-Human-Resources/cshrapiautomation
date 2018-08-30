@@ -289,6 +289,9 @@ public class VacancyDetails implements Serializable {
 
     @JsonProperty("governmentOpeningDate")
     public void setGovernmentOpeningDate(String governmentOpeningDate) {
+        if(governmentOpeningDate ==" "||governmentOpeningDate==""){
+            governmentOpeningDate=null;
+        }
         this.governmentOpeningDate = governmentOpeningDate;
     }
 
@@ -309,6 +312,9 @@ public class VacancyDetails implements Serializable {
 
     @JsonProperty("internalOpeningDate")
     public void setInternalOpeningDate(String internalOpeningDate) {
+        if(internalOpeningDate ==" "||internalOpeningDate==""){
+            internalOpeningDate=null;
+        }
         this.internalOpeningDate = internalOpeningDate;
     }
 
@@ -359,6 +365,9 @@ public class VacancyDetails implements Serializable {
 
     @JsonProperty("publicOpeningDate")
     public void setPublicOpeningDate(String publicOpeningDate) {
+        if(publicOpeningDate ==" "||publicOpeningDate==""){
+            publicOpeningDate=null;
+        }
         this.publicOpeningDate = publicOpeningDate;
     }
 
