@@ -91,18 +91,18 @@ public class ApiSetup {
         return false;
     }
 
-    public boolean areSalaryResultsInGivenFilters(Integer salMin, Integer salMax, Integer FilterSalMin, Integer FilterSalMax ){
-        if(salMax==null){
-            salMax=salMin;
+    public boolean areSalaryResultsInGivenFilters(Integer resSalMin, Integer resSalMax, Integer FilterSalMin, Integer FilterSalMax ){
+        if(resSalMax==null){
+            resSalMax=resSalMin;
         }
 
         if(FilterSalMax==null){
             FilterSalMax = Integer.MAX_VALUE;
         }
-
-        if((salMin>=FilterSalMin && salMax <=FilterSalMax)||
-                (salMin<=FilterSalMin&&salMax <=FilterSalMax)||
-                (salMin<=FilterSalMin&&salMax >=FilterSalMax)){
+        if((resSalMin>=FilterSalMin && resSalMax <=FilterSalMax)||
+                (resSalMin<=FilterSalMin && resSalMax <=FilterSalMax)||
+                (resSalMin<=FilterSalMin && resSalMax >=FilterSalMax)||
+                (resSalMin.equals(FilterSalMax) && resSalMax >=FilterSalMax)){
             return true;
         }
 

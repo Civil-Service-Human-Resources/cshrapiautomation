@@ -59,7 +59,7 @@ public class SalaryTest extends CreateTestData {
             Integer salaryMin= response.body().jsonPath().get("vacancies.content[" +i+ "].salaryMin");
             Integer salaryMax= response.body().jsonPath().get("vacancies.content[" +i+ "].salaryMax");
 
-            System.out.println("Between 30000 and 40000 filtered results are : "+"salaryMin : "+ salaryMin+ " salaryMax: "+salaryMax);
+            System.out.println("Between "+filterMinSalary +" and "+ filterMaxSalary +" filtered results are : "+"salaryMin : "+ salaryMin+ " salaryMax: "+salaryMax);
             //Case1: MinSalary = 28000 and MaxSalary = 31000 -- Should Show
             //Case2: MinSalary = 31000 and MaxSalary = 40000 -- Should Show
             //Case3: MinSalary = 40000 and MaxSalary = 45000  -- Should Show
