@@ -90,4 +90,22 @@ public class ApiSetup {
         }
         return false;
     }
+
+    public boolean areSalaryResultsInGivenFilters(Integer salMin, Integer salMax, Integer FilterSalMin, Integer FilterSalMax ){
+        if(salMax==null){
+            salMax=salMin;
+        }
+
+        if(FilterSalMax==null){
+            FilterSalMax = Integer.MAX_VALUE;
+        }
+
+        if((salMin>=FilterSalMin && salMax <=FilterSalMax)||
+                (salMin<=FilterSalMin&&salMax <=FilterSalMax)||
+                (salMin<=FilterSalMin&&salMax >=FilterSalMax)){
+            return true;
+        }
+
+        return false;
+    }
 }
